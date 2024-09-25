@@ -20,6 +20,7 @@ public class Student implements SluggerInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.ViewsStudents.class)
     private Integer id;
 
     @JsonView(JsonViews.ViewsStudents.class)
@@ -32,12 +33,13 @@ public class Student implements SluggerInterface {
 
     @JsonView(JsonViews.ViewsStudents.class)
     @Column(nullable = false)
-    private boolean isAlive;
+    private Boolean isAlive;
 
     @ManyToOne
     @JsonView(JsonViews.ViewsStudents.class)
     private House house;
 
+    @JsonView(JsonViews.ViewsStudents.class)
     private String slug;
 
     @ManyToMany

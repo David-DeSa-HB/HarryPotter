@@ -1,5 +1,6 @@
 package fr.human.booster.HarryPotter.entity;
 
+import fr.human.booster.HarryPotter.slugger.SluggerInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Entity
 @Data
-public class Subject {
+public class Subject implements SluggerInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +19,11 @@ public class Subject {
     @Column(nullable = false)
     private String subjectName;
 
+    @Column(nullable = false)
+    private String slug;
+
+    @Override
+    public String getField() {
+        return subjectName;
+    }
 }
