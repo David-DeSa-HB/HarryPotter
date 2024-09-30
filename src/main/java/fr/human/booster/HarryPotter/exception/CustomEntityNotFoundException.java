@@ -12,10 +12,6 @@ import lombok.Setter;
 @Getter
 public class CustomEntityNotFoundException extends EntityNotFoundException {
 
-    private String field;
-
-    private Object value;
-
-    private String entity;
+    private String message = "Ce ne sont pas les droïdes que vous recherchez.";
 
 }
