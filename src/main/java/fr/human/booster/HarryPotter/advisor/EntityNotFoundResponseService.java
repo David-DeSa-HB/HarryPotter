@@ -1,6 +1,7 @@
 package fr.human.booster.HarryPotter.advisor;
 
-import jakarta.persistence.EntityNotFoundException;
+import fr.human.booster.HarryPotter.exception.CustomEntityNotFoundException;
+import fr.human.booster.HarryPotter.response.CustomResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class EntityNotFoundResponseService {
 
     @ResponseBody
+<<<<<<< HEAD
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleEntityNotFoundHander(EntityNotFoundException exception) {
@@ -21,6 +23,15 @@ public class EntityNotFoundResponseService {
 //        response.setEntity(exception.getEntity());
 //        return reponse;
         return "Not Found";
+=======
+    @ExceptionHandler(CustomEntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CustomResponse entityNotFoundHandler(CustomEntityNotFoundException exception) {
+        CustomResponse response = new CustomResponse();
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+        response.setMessage(exception.getMessage());
+        return response;
+>>>>>>> f37dcc8708f34b8f1dba1f162d9bebc224ffaaff
     }
 
 }

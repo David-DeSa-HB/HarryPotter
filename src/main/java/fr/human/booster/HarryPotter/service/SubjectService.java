@@ -2,6 +2,7 @@ package fr.human.booster.HarryPotter.service;
 
 import fr.human.booster.HarryPotter.DTO.SubjectDTO;
 import fr.human.booster.HarryPotter.entity.Subject;
+import fr.human.booster.HarryPotter.exception.CustomEntityNotFoundException;
 import fr.human.booster.HarryPotter.repository.SubjectRepository;
 import fr.human.booster.HarryPotter.service.interfaces.ServiceInterface;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,7 +33,7 @@ public class SubjectService implements ServiceInterface<Subject, Integer, Subjec
     public Subject findOneById(Integer id) {
         return subjectRepository
                 .findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(CustomEntityNotFoundException::new);
     }
 
     @Override

@@ -2,6 +2,7 @@ package fr.human.booster.HarryPotter.service;
 
 import fr.human.booster.HarryPotter.DTO.HouseDTO;
 import fr.human.booster.HarryPotter.entity.House;
+import fr.human.booster.HarryPotter.exception.CustomEntityNotFoundException;
 import fr.human.booster.HarryPotter.repository.HouseRepository;
 import fr.human.booster.HarryPotter.service.interfaces.ServiceInterface;
 import jakarta.persistence.EntityNotFoundException;
@@ -33,7 +34,7 @@ public class HouseService  implements ServiceInterface<House, Integer, HouseDTO>
     public House findOneById(Integer id) {
         return houseRepository
                 .findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(CustomEntityNotFoundException::new);
     }
 
     @Override

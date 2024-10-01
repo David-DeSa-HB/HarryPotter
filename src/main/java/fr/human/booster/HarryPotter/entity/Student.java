@@ -45,6 +45,7 @@ public class Student implements SluggerInterface {
     @ManyToMany
     @JoinTable(
             name ="student_type_of_class",
+            joinColumns = {@JoinColumn (name =  "student_id")},
             inverseJoinColumns = {@JoinColumn (name =  "type_of_class_id")}
     )
     private List<TypeOfClass> typeOfClasses = new ArrayList<>();
