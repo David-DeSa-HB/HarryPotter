@@ -1,6 +1,6 @@
 package fr.human.booster.HarryPotter.repository;
 
-import fr.human.booster.HarryPotter.entity.Subject;
+import fr.human.booster.HarryPotter.entity.Role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SubjectRepository extends JpaRepository<Subject, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-    Optional<Subject> findBySubjectNameContainingIgnoreCase(String search);
+    Optional<Role> findByLabelContainingIgnoreCase(String search);
 }

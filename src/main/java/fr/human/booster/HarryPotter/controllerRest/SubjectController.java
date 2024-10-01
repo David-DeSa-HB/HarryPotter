@@ -1,6 +1,6 @@
 package fr.human.booster.HarryPotter.controllerRest;
 
-import fr.human.booster.HarryPotter.DTO.SubjectDTO;
+import fr.human.booster.HarryPotter.dto.SubjectDTO;
 import fr.human.booster.HarryPotter.entity.Subject;
 import fr.human.booster.HarryPotter.service.SubjectService;
 import jakarta.validation.Valid;
@@ -24,6 +24,11 @@ public class SubjectController {
     @GetMapping("/{id}")
     public Subject findSubjectById(@PathVariable Integer id){
         return subjectService.findOneById(id);
+    }
+
+    @GetMapping("/{search}")
+    public Subject findSubjectBySearch(@PathVariable String  search){
+        return subjectService.findBySearch(search);
     }
 
     @PostMapping

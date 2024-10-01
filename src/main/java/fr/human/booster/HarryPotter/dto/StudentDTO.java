@@ -1,4 +1,4 @@
-package fr.human.booster.HarryPotter.DTO;
+package fr.human.booster.HarryPotter.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class StudentDTO {
 
-    @NotNull (message = "cannot be null")
     @NotBlank (message = "required field")
     private String Name;
 
@@ -23,7 +22,7 @@ public class StudentDTO {
     private boolean isAlive;
 
     @NotNull (message = "cannot be null")
-    @Min(value = 1, message = "1 Gryffondor, \n 3 Serpentard, \n 4 Poufsouffle, \n 5 Serdaigle, \n 3 Inconnu")
-    @Max(value = 6, message = "1 Gryffondor, \n 3 Serpentard, \n 4 Poufsouffle, \n 5 Serdaigle, \n 3 Inconnu")
+    @Min(value = 1, message = "1 Gryffondor, \n 3 Serpentard, \n 4 Poufsouffle, \n 5 Serdaigle, \n 6 Inconnu")
+    @Max(value = 6, message = "1 Gryffondor, \n 3 Serpentard, \n 4 Poufsouffle, \n 5 Serdaigle, \n 6 Inconnu")
     private Integer houseId;
 }

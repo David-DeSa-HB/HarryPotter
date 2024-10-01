@@ -17,5 +17,4 @@ public class Offense {
 
     @Column(nullable = false)
     private String label;
-
 }

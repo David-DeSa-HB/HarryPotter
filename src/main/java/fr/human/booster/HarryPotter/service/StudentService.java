@@ -1,19 +1,20 @@
 package fr.human.booster.HarryPotter.service;
 
-import fr.human.booster.HarryPotter.DTO.StudentDTO;
+import fr.human.booster.HarryPotter.dto.StudentDTO;
 import fr.human.booster.HarryPotter.entity.Student;
 import fr.human.booster.HarryPotter.exception.CustomEntityNotFoundException;
 import fr.human.booster.HarryPotter.repository.StudentRepository;
-import fr.human.booster.HarryPotter.service.interfaces.ServiceInterface;
-import jakarta.persistence.EntityNotFoundException;
+import fr.human.booster.HarryPotter.service.interfaces.ServiceCUDInterface;
+import fr.human.booster.HarryPotter.service.interfaces.ServiceListInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class StudentService implements ServiceInterface<Student, Integer, StudentDTO> {
+public class StudentService implements ServiceListInterface<Student, Integer>, ServiceCUDInterface<Student, StudentDTO, StudentDTO, Integer> {
 
     private final StudentRepository studentRepository;
     private final HouseService houseService;
@@ -47,6 +48,16 @@ public class StudentService implements ServiceInterface<Student, Integer, Studen
     @Override
     public List<Student> list() {
         return studentRepository.findAll();
+    }
+
+    public Student findBySearch(String search) {
+        Optional<Student> optional;
+        try {
+            optional = studentRepository.findById(Integer.parseInt(search));
+        } catch (NumberFormatException e) {
+            optional = studentRepository.findByNameContainingIgnoreCase(search);
+        }
+        return optional.orElseThrow(CustomEntityNotFoundException::new);
     }
 
     public Student studentFromDTO(Student student, StudentDTO studentDTO) {

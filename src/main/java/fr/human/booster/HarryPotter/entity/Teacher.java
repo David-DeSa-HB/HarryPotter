@@ -26,5 +26,4 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher")
     private List<TypeOfClass> typeOfClasses = new ArrayList<>();
-
 }

@@ -28,6 +28,4 @@ public class HousePoint {
     @ManyToOne
     @JoinColumn(nullable = false)
     private House house;
-
-
 }

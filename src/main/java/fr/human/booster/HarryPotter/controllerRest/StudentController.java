@@ -1,7 +1,7 @@
 package fr.human.booster.HarryPotter.controllerRest;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import fr.human.booster.HarryPotter.DTO.StudentDTO;
+import fr.human.booster.HarryPotter.dto.StudentDTO;
 import fr.human.booster.HarryPotter.entity.Student;
 import fr.human.booster.HarryPotter.service.StudentService;
 import fr.human.booster.HarryPotter.utils.JsonViews;
@@ -24,10 +24,10 @@ public class StudentController {
         return studentService.list();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{search}")
     @JsonView(JsonViews.ViewsStudents.class)
-    public Student findStudentById(@PathVariable int id){
-        return studentService.findOneById(id);
+    public Student findStudentBySearch(@PathVariable String  search){
+        return studentService.findBySearch(search);
     }
 
     @PostMapping

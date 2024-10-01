@@ -2,21 +2,21 @@ package fr.human.booster.HarryPotter.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Data
-public class User implements UserDetailsService {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -36,14 +36,7 @@ public class User implements UserDetailsService {
     private List<Role> roles = new ArrayList<>();
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = UserRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Les cochons sont dans la baie"));
-
-        return new User(
-                user.getUsername(),
-                user.getPassword(),
-                userGrantedAuthority(user.getRole())
-        );
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 }

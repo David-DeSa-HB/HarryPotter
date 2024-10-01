@@ -23,5 +23,4 @@ public class HouseHistory {
 
     @Column(name = "old_founder_last_name")
     private String oldFounderLastName;
-
 }

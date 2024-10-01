@@ -1,4 +1,4 @@
-package fr.human.booster.HarryPotter.DTO;
+package fr.human.booster.HarryPotter.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class SubjectDTO {
 
-    @NotNull (message = "cannot be null")
     @NotBlank (message = "required field")
     String name;
 }

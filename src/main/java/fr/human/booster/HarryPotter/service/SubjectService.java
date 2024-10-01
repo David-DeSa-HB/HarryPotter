@@ -1,19 +1,20 @@
 package fr.human.booster.HarryPotter.service;
 
-import fr.human.booster.HarryPotter.DTO.SubjectDTO;
+import fr.human.booster.HarryPotter.dto.SubjectDTO;
 import fr.human.booster.HarryPotter.entity.Subject;
 import fr.human.booster.HarryPotter.exception.CustomEntityNotFoundException;
 import fr.human.booster.HarryPotter.repository.SubjectRepository;
-import fr.human.booster.HarryPotter.service.interfaces.ServiceInterface;
-import jakarta.persistence.EntityNotFoundException;
+import fr.human.booster.HarryPotter.service.interfaces.ServiceCUDInterface;
+import fr.human.booster.HarryPotter.service.interfaces.ServiceListInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class SubjectService implements ServiceInterface<Subject, Integer, SubjectDTO> {
+public class SubjectService implements ServiceListInterface<Subject, Integer>, ServiceCUDInterface<Subject, SubjectDTO, SubjectDTO, Integer> {
 
     private SubjectRepository subjectRepository;
 
@@ -46,6 +47,16 @@ public class SubjectService implements ServiceInterface<Subject, Integer, Subjec
     @Override
     public List<Subject> list() {
         return subjectRepository.findAll();
+    }
+
+    public Subject findBySearch(String search) {
+        Optional<Subject> optional;
+        try {
+            optional = subjectRepository.findById(Integer.parseInt(search));
+        } catch (NumberFormatException e) {
+            optional = subjectRepository.findBySubjectNameContainingIgnoreCase(search);
+        }
+        return optional.orElseThrow(CustomEntityNotFoundException::new);
     }
 
     public Subject subjectFromDTO(Subject subject, SubjectDTO subjectDTO) {

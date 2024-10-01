@@ -38,5 +38,4 @@ public class TypeOfClass {
     @JoinColumn(nullable = false)
     @JsonView(JsonViews.ViewsStudents.class)
     private Subject subject;
-
 }

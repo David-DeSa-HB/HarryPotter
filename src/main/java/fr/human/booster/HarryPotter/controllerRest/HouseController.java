@@ -1,7 +1,7 @@
 package fr.human.booster.HarryPotter.controllerRest;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import fr.human.booster.HarryPotter.DTO.HouseDTO;
+import fr.human.booster.HarryPotter.dto.HouseDTO;
 import fr.human.booster.HarryPotter.entity.House;
 import fr.human.booster.HarryPotter.service.HouseService;
 import fr.human.booster.HarryPotter.utils.JsonViews;

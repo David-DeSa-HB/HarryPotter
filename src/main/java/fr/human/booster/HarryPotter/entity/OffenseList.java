@@ -29,5 +29,4 @@ public class OffenseList {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Offense offense;
-
 }
