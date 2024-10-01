@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class EntityNotFoundResponseService {
 
-//    @ResponseBody
-//    @ExceptionHandler(EntityNotFoundException.class)
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public String handleEntityNotFoundHander(EntityNotFoundException exception) {
+    @ResponseBody
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleEntityNotFoundHander(EntityNotFoundException exception) {
 //        CustomResponse response = new CustomResponse();
 //        response.setStatus(HttpStatus.BAD_GATEWAY.value());
 //        response.setField(exception.getField());
 //        response.setValue(exception.getValue());
 //        response.setEntity(exception.getEntity());
-//        return response;
-//    }
+//        return reponse;
+        return "Not Found";
+    }
 
 }

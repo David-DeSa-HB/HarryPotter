@@ -24,10 +24,10 @@ public class HouseController {
         return houseService.list();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{search}")
     @JsonView(JsonViews.ViewsHouse.class)
-    public House findHouseById(@PathVariable Integer id){
-        return houseService.findOneById(id);
+    public House findHouseBySearch(@PathVariable String  search){
+        return houseService.findBySearch(search);
     }
 
     @PostMapping

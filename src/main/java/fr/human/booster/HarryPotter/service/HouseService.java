@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -51,5 +52,16 @@ public class HouseService  implements ServiceInterface<House, Integer, HouseDTO>
         house.setFounderLastName(houseDTO.getFounderLastName());
         house.setSlug("");
         return house;
+    }
+
+    public House findBySearch(String search) {
+        Optional<House> optional;
+        try {
+            optional = houseRepository.findById(Integer.parseInt(search));
+        }
+        catch (NumberFormatException e){
+            optional = houseRepository.findHouseByHouseNameContainingIgnoreCase(search);
+        }
+        return optional.orElseThrow(EntityNotFoundException::new);
     }
 }
