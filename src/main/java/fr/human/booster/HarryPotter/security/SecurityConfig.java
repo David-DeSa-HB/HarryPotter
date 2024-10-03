@@ -37,13 +37,14 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers("/api/login", "/api/register", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                                 .requestMatchers(
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/subject"),
                                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/subject/**"),
                                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/student/**"),
                                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/house/**")
                                 ).authenticated()
-                                .requestMatchers(
-                                        AntPathRequestMatcher.antMatcher("/api/**")
-                                ).hasAnyAuthority("ROLE_ADMIN")
+//                                .requestMatchers(
+//                                        AntPathRequestMatcher.antMatcher("/api/**")
+//                                ).hasAnyAuthority("ROLE_ADMIN")
                 );
         return http.build();
     }
