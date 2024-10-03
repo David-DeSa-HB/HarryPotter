@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String uuid;
 
-    private String username;
+    private String nickname;
 
     private String password;
 
@@ -32,11 +32,21 @@ public class User implements UserDetails {
 
     private LocalDateTime isActive;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 package fr.human.booster.HarryPotter.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserLoginDTO {
 
+    @NotBlank
     private String email;
 
+    @NotBlank
     private String password;
 }

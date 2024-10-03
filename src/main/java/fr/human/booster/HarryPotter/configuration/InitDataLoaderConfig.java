@@ -54,7 +54,7 @@ public class InitDataLoaderConfig implements CommandLineRunner {
                 name = faker.name().name().replace(" ", "");
             } while (duplicates.contains(name));
             duplicates.add(name);
-            user.setUsername(name);
+            user.setNickname(name);
             user.setPassword(passwordEncoder.encode("12345*"));
             user.setCreatedAt(generateRandomDate());
             user.setEmail(name + "@toto.toto");

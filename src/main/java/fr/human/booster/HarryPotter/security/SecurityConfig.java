@@ -29,7 +29,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain getFilterChain(HttpSecurity http) throws Exception {
-        http
+        http.securityMatcher("/api/**")
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
@@ -37,14 +37,13 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers("/api/login", "/api/register", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                                 .requestMatchers(
-                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/subject"),
-                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/subject/**"),
-                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/student/**"),
+                                        AntPathRequestMatcher.antMatcher("/api/subject/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/student"),
                                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/house/**")
-                                ).authenticated()
-//                                .requestMatchers(
-//                                        AntPathRequestMatcher.antMatcher("/api/**")
-//                                ).hasAnyAuthority("ROLE_ADMIN")
+                                ).hasAnyAuthority("ROLE_USER")
+                                .requestMatchers(
+                                        AntPathRequestMatcher.antMatcher("/api/**")
+                                ).hasAnyAuthority("ROLE_ADMIN")
                 );
         return http.build();
     }

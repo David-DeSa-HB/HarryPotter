@@ -21,14 +21,14 @@ public class SubjectController {
         return subjectService.list();
     }
 
-    @GetMapping("/{id}")
-    public Subject findSubjectById(@PathVariable Integer id){
-        return subjectService.findOneById(id);
-    }
+//    @GetMapping("/{id}")
+//    public Subject findSubjectById(@PathVariable Integer id){
+//        return subjectService.findOneById(id);
+//    }
 
     @GetMapping("/{search}")
     public Subject findSubjectBySearch(@PathVariable String  search){
-        return subjectService.findBySearch(search);
+           return subjectService.findBySearch(search);
     }
 
     @PostMapping

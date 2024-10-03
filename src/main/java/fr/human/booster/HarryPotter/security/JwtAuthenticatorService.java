@@ -2,7 +2,6 @@ package fr.human.booster.HarryPotter.security;
 
 import fr.human.booster.HarryPotter.dto.UserLoginDTO;
 import fr.human.booster.HarryPotter.response.JwtResponse;
-import fr.human.booster.HarryPotter.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

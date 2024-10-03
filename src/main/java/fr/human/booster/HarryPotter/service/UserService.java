@@ -55,10 +55,13 @@ public class UserService implements ServiceGetInterface<User, String>, ServiceCU
     }
 
     private User getUserFromUserCreateDTO(User user, UserCreateDTO dto) {
-        user.setUsername(dto.getNickname());
+        user.setNickname(dto.getNickname());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(roleService.findOneById(1));
+        user.setRoles(roleList);
         return user;
     }
 
@@ -71,22 +74,21 @@ public class UserService implements ServiceGetInterface<User, String>, ServiceCU
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        System.out.println("username = " + username);
         User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Tu es un moldu"));
-        System.out.println("UserService.loadUserByUsername");
+                .orElseThrow(() -> new UsernameNotFoundException("Connexion Impossible"));
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
                 getGrantedAuthority(user.getRoles())
         );
     }
 
     private Collection<? extends GrantedAuthority> getGrantedAuthority(List<Role> roles) {
-        System.out.println("UserService.getGrantedAuthority");
         List<GrantedAuthority> authorities = new ArrayList<>();
+        System.out.println("roles = " + roles);
         roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getLabel())));
+        System.out.println("authorities = " + authorities);
         return authorities;
     }
 }

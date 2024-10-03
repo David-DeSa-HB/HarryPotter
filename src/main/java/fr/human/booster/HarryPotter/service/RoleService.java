@@ -56,5 +56,4 @@ public class RoleService implements ServiceListInterface <Role, Integer>, Servic
         role.setLabel(dto.getLabel());
         return role;
     }
-
 }
