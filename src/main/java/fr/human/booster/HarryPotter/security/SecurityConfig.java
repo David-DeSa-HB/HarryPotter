@@ -37,7 +37,7 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers("/api/login", "/api/register", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                                 .requestMatchers(
-                                        AntPathRequestMatcher.antMatcher("/api/subject/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/subject/**"),
                                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/student"),
                                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/house/**")
                                 ).hasAnyAuthority("ROLE_USER")
