@@ -3,7 +3,9 @@ package fr.human.booster.HarryPotter.service;
 import fr.human.booster.HarryPotter.dto.UserCreateDTO;
 import fr.human.booster.HarryPotter.dto.UserUpdateDTO;
 import fr.human.booster.HarryPotter.entity.Role;
+import fr.human.booster.HarryPotter.exception.AlreadyActiveException;
 import fr.human.booster.HarryPotter.exception.CustomEntityNotFoundException;
+import fr.human.booster.HarryPotter.exception.ExpiredCodeException;
 import fr.human.booster.HarryPotter.repository.UserRepository;
 import fr.human.booster.HarryPotter.entity.User;
 import fr.human.booster.HarryPotter.service.interfaces.ServiceCUDInterface;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -58,10 +61,14 @@ public class UserService implements ServiceGetInterface<User, String>, ServiceCU
         user.setNickname(dto.getNickname());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setActivationCode(UUID.randomUUID().toString());
+        user.setActivationCodeSentAt(LocalDateTime.now());
+        // Send mail ? mailerService.sendActivationCode(user);
         user.setCreatedAt(LocalDateTime.now());
         List<Role> roleList = new ArrayList<>();
         roleList.add(roleService.findOneById(1));
         user.setRoles(roleList);
+
         return user;
     }
 
@@ -70,6 +77,19 @@ public class UserService implements ServiceGetInterface<User, String>, ServiceCU
         userRoles.add(roleService.findOneById(dto.getRoleId()));
         user.setRoles(userRoles);
         return user;
+    }
+
+    public User activate(String code) {
+        User user = userRepository.findUserByActivationCode(code)
+                .orElseThrow(() -> new AlreadyActiveException("Invalid Activating Code"));
+
+        LocalDateTime current = LocalDateTime.now();
+        if (current.isAfter(user.getActivationCodeSentAt().plusMinutes(15))) {
+            throw new ExpiredCodeException("Invalid Activating Code");
+        }
+        user.setActivationCode(null);
+        user.setActivationCodeSentAt(null);
+        return userRepository.saveAndFlush(user);
     }
 
     @Override

@@ -26,11 +26,14 @@ public class User implements UserDetails {
 
     private String password;
 
+    @Column(unique = true)
     private String email;
 
     private LocalDateTime createdAt;
 
-    private LocalDateTime isActive;
+    private String activationCode;
+
+    private LocalDateTime activationCodeSentAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
