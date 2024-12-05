@@ -41,4 +41,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: registry.github.com/romain.therrat/cdar4-petclinic:github //////////////////////////////////
+          tags: registry.github.com/David-DeSa-HB/HarryPotter:github
